@@ -1,7 +1,7 @@
 const uniqid = require('uniqid')
 const axios = require('axios');
 const firebase = require('../config/firebase')
-const { locksData } = require('../helpers')
+const { textToSpeech, announcerTranscript, locksData } = require('../helpers')
 
 class Flood{
   static async getAllLocksData(req, res){
