@@ -24,14 +24,13 @@ class Earthquake {
       clientBatchId: 'abc-123',  
       messages: [
           {
-            destination: '+6285218824524',
+            destination: '6281809505877',
             clientMessageId: '1000',
-            text: 'Bob, special present for you from Santa'
           }
         ],
       template: {
-        source: 'EvaQlueAtion',
-        text: announcerTranscript('earthquake', req.body),
+        source: 'QLUSTER',
+        text: 'test',
         encoding: 'AUTO'
       }
       },{
