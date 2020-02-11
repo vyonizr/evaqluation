@@ -1,7 +1,7 @@
 {
   "locks":[
     {
-      "name":"Bendung KatulamPintu Air",
+      "name":"Bendung Katulampa",
       "lat":-6.6338587,
       "lng":106.836801,
       "water_threshold":{"siaga_tiga":81,"siaga_dua":151,"siaga_satu":201}
