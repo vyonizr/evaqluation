@@ -17,6 +17,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase-admin": "^8.9.2",
+    "oauth": "^0.9.15",
     "uniqid": "^5.2.0"
   },
   "devDependencies": {
