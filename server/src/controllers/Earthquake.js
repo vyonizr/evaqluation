@@ -31,7 +31,7 @@ class Earthquake {
           ],
         template: {
           source: 'QLUSTER',
-          text: 'test',
+          text: announcerTranscript('earthquake', req.body),
           encoding: 'AUTO'
         }
         },{
