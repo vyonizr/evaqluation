@@ -1,7 +1,7 @@
 const uniqid = require('uniqid')
 const axios = require('axios');
 const firebase = require('../config/firebase')
-const { textToSpeech, announcerTranscript } = require('../helpers')
+const { textToSpeech, announcerTranscript, smsContent } = require('../helpers')
 
 class Earthquake {
   static async createNewEarthquakeInfo(req, res){
@@ -31,7 +31,7 @@ class Earthquake {
           ],
         template: {
           source: 'QLUSTER',
-          text: announcerTranscript('earthquake', req.body),
+          text: smsContent('earthquake', req.body),
           encoding: 'AUTO'
         }
         },{

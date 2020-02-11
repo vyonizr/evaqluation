@@ -1,7 +1,7 @@
 const uniqid = require('uniqid')
 const axios = require('axios');
 const firebase = require('../config/firebase')
-const { textToSpeech, announcerTranscript, locksData } = require('../helpers')
+const { textToSpeech, announcerTranscript, locksData, smsContent } = require('../helpers')
 
 class Flood{
   static async getAllLocksData(req, res){
@@ -38,7 +38,7 @@ class Flood{
           ],
         template: {
           source: 'QLUSTER',
-          text: announcerTranscript('flood', req.body),
+          text: smsContent('flood', req.body),
           encoding: 'AUTO'
         }
         },{
