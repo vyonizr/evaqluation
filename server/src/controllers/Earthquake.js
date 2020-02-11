@@ -1,7 +1,8 @@
 const uniqid = require('uniqid')
 const axios = require('axios');
 const firebase = require('../config/firebase')
-const { textToSpeech, announcerTranscript, smsContent } = require('../helpers')
+const { textToSpeech, announcerTranscript, smsContent, tweetContents, postTweet } = require('../helpers')
+const disasterType = 'earthquake'
 
 class Earthquake {
   static async createNewEarthquakeInfo(req, res){
@@ -18,11 +19,11 @@ class Earthquake {
         lng
       });
 
-      await textToSpeech(announcerTranscript('earthquake', req.body))
+      await textToSpeech(announcerTranscript(disasterType, req.body))
 
       if (process.env.NODE_ENV === 'prod') {
-        const wavecellResponse = await axios.post(`https://api.wavecell.com/sms/v1/${process.env.SUB_ACCOUNT_ID_WAVECELL}/many`, {
-        clientBatchId: 'abc-123',  
+        await axios.post(`https://api.wavecell.com/sms/v1/${process.env.SUB_ACCOUNT_ID_WAVECELL}/many`, {
+        clientBatchId: 'abc-123',
         messages: [
             {
               destination: '6281809505877',
@@ -40,9 +41,9 @@ class Earthquake {
             'Content-Type': 'application/json'
           }
         });
-  
-        console.log(wavecellResponse.data)
       }
+
+      postTweet(tweetContents(disasterType, req.body))
 
       res.status(201).send('Earthquake info successfully sent to firebase database')
     } catch (error) {
