@@ -1,6 +1,5 @@
 function announcerTranscript(disaster, payload) {
   let text = ''
-  console.log(disaster)
 
   switch(disaster) {
     case 'earthquake':
