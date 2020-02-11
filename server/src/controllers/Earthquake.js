@@ -6,16 +6,19 @@ const { textToSpeech, announcerTranscript } = require('../helpers')
 class Earthquake {
   static async createNewEarthquakeInfo(req, res){
     try {
-      const { aftershocks, depth, earthquake_point, magnitude, tsunami } = req.body
+      const { aftershocks, depth, earthquake_point, magnitude, tsunami, time, lat, lng } = req.body
       firebase.database().ref('earthquakes/' + uniqid()).set({
         aftershocks,
         depth,
         earthquake_point,
         magnitude,
-        tsunami
+        tsunami,
+        time,
+        lat,
+        lng
       });
 
-      // await textToSpeech(announcerTranscript('earthquake', req.body))
+      await textToSpeech(announcerTranscript('earthquake', req.body))
 
       const wavecellResponse = await axios.post(`https://api.wavecell.com/sms/v1/${process.env.SUB_ACCOUNT_ID_WAVECELL}/many`, {
       clientBatchId: 'abc-123',  
@@ -40,7 +43,7 @@ class Earthquake {
 
       console.log(wavecellResponse.data)
 
-      res.status(201).send('Sent to firebase database')
+      res.status(201).send('Earthquake info successfully sent to firebase database')
     } catch (error) {
       console.log(error);
     }
