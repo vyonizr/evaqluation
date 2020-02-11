@@ -14,7 +14,7 @@ class Earthquake {
         tsunami
       });
 
-      await textToSpeech('earthquake', PSAGenerator(req.body))
+      await textToSpeech(announcerTranscript('earthquake', req.body))
 
       res.status(201).send('Sent to firebase database')
     } catch (error) {
