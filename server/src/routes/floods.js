@@ -3,6 +3,6 @@ const { Flood } = require('../controllers')
 const { checkMandatoryParams } = require('../middlewares')
 
 router.get('/', Flood.getAllLocksData)
-router.post('/', checkMandatoryParams, Flood.createNewWaterLockInfo)
+router.post('/', Flood.createNewWaterLockInfo)
 
 module.exports = router
