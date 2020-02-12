@@ -23,14 +23,13 @@ class Flood{
         water_level,
         weather,
         lat,
-        lng
+        lng,
+        base64: await textToSpeech(announcerTranscript(disasterType, req.body))
       });
-
-      await textToSpeech(announcerTranscript(disasterType, req.body))
 
       if (process.env.NODE_ENV === 'prod') {
         await axios.post(`https://api.wavecell.com/sms/v1/${process.env.SUB_ACCOUNT_ID_WAVECELL}/many`, {
-        clientBatchId: 'abc-123',  
+        clientBatchId: 'abc-123',
         messages: [
             {
               destination: '6281809505877',

@@ -20,8 +20,9 @@ async function textToSpeech(text) {
 
     const { data } = await axios.post(`https://texttospeech.googleapis.com/v1/text:synthesize?key=${process.env.GOOGLE_API_KEY}`, request)
 
-    fs.writeFileSync('output_psa.mp3', data.audioContent, 'base64')
+    fs.writeFileSync('src/assets/output_psa.mp3', data.audioContent, 'base64')
     console.log('Audio content written to file: output_psa.mp3');
+    return data.audioContent
   }
   catch (error) {
     console.log(error);
