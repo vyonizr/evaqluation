@@ -1,0 +1,13 @@
+{
+  "name": "evaqlueation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/vyonizr/evaqlueation.git",
+  "author": "Fitrahtur Rahman <fitrahtur@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": "8.17.0",
+    "yarn": "1.21.1"
+  }
+}
