@@ -8,28 +8,68 @@ import firebaseDatabase from './config/firebaseDatabase'
 import { evaqlueationLogoFull, iconEarthquake, iconFloodGate } from './assets'
 import CanvasMarkersLayer from './Components/CanvasMarkersLayer'
 
-function App(entry) {
+let firstEarthquakeCheck = false
+let firstFloodsCheck = false
+
+function App() {
+  const [earthquakes, setEarthquakes] = useState([])
+  const [floods, setFloods] = useState([])
   const [naturalDisasters, setNaturalDisasters] = useState([])
 
   useEffect(() => {
-    let disastersRef = firebaseDatabase.ref()
-    let listener = disastersRef.on('value', (snapshot) => {
-      var disasterArray = []
-      for (let disasterType in snapshot.val()) {
-        for (let disaster in snapshot.val()[disasterType]) {
-          let disasterObject = snapshot.val()[disasterType][disaster]
-          disasterArray.push(disasterObject)
-        }
+    let earthquakesRef = firebaseDatabase.ref('earthquakes')
+    let earthquakesListener = earthquakesRef.on('value', (snapshot) => {
+      var earthquakesArray = []
+      for (let earthquake in snapshot.val()) {
+        earthquakesArray.push(snapshot.val()[earthquake])
       }
-      setNaturalDisasters(disasterArray)
+
+      if (firstEarthquakeCheck && earthquakesArray[earthquakesArray.length - 1]) {
+        let snd = new Audio("data:audio/wav;base64," + earthquakesArray[earthquakesArray.length - 1].base64);
+        snd.play();
+
+        console.log(snd, '<== snd');
+      }
+
+      firstEarthquakeCheck = true
+      setEarthquakes(earthquakesArray)
     })
 
-    return () => listener
+    return () => earthquakesListener
   }, [])
 
+  useEffect(() => {
+    let floodsRef = firebaseDatabase.ref('floods')
+
+    let floodsListener = floodsRef.on('value', (snapshot) => {
+      var floodsArray = []
+      for (let flood in snapshot.val()) {
+        floodsArray.push(snapshot.val()[flood])
+      }
+
+      if (firstFloodsCheck && floodsArray[floodsArray.length - 1]) {
+        let snd = new Audio("data:audio/wav;base64," + floodsArray[floodsArray.length - 1].base64);
+        snd.play();
+      }
+
+      firstFloodsCheck = true
+      setFloods(floodsArray)
+    })
+
+    return () => floodsListener
+  }, [])
+
+  useEffect(() => {
+    const combinedDisasters = [...earthquakes, ...floods]
+    setNaturalDisasters(combinedDisasters)
+  }, [earthquakes, floods])
 
   const onMarkerClick = (e, marker) => {
   }
+
+  // const getFiles = (file) => {
+  //   console.log(file, '<== FILE');
+  // }
 
   const position = [-0.8, 120.9213]
   return (
@@ -67,7 +107,7 @@ function App(entry) {
                         disaster={disaster}
                       >
                         <div>
-                          <h2>{ disaster.magnitude ? `Gempa Bumi ${disaster.magnitude} SR` : `Peringatan Banjir ${disaster.lock}`}</h2>
+                          <h2>{ disaster.magnitude ? `Gempa Bumi ${disaster.magnitude} SR` : `Peringatan Banjir ${disaster.lock}: ${disaster.status}`}</h2>
                         </div>
                       </Popup>
                     </Marker>
