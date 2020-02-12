@@ -12,9 +12,9 @@ function App(entry) {
   const [naturalDisasters, setNaturalDisasters] = useState([])
 
   useEffect(() => {
-    const disasterArray = []
     let disastersRef = firebaseDatabase.ref()
-    disastersRef.on('value', (snapshot) => {
+    let listener = disastersRef.on('value', (snapshot) => {
+      var disasterArray = []
       for (let disasterType in snapshot.val()) {
         for (let disaster in snapshot.val()[disasterType]) {
           let disasterObject = snapshot.val()[disasterType][disaster]
@@ -24,10 +24,9 @@ function App(entry) {
       setNaturalDisasters(disasterArray)
     })
 
-    return () => disastersRef.off('value')
-  }, [entry])
+    return () => listener
+  }, [])
 
-  console.log(naturalDisasters.length);
 
   const onMarkerClick = (e, marker) => {
   }
