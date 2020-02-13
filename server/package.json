@@ -1,9 +1,15 @@
 {
   "name": "evaqlueation-server",
   "version": "1.0.0",
-  "description": "evaqlueation",
+  "description": "Evaqlueation server",
   "main": "index.js",
-  "author": "Fitrahtur Rahman",
+  "author": "Fitrahtur Rahman <fitrahtur@gmail.com>",
+  "contributors": [
+    "Sukmo Ronggo Hadi Wijoyo <hd.wijoyo@gmail.com> (https://github.com/sukmahd)",
+    "Nur If Alan Farizi <if.alan2@gmail.com>",
+    "Muhammad Fikry <muhammadfikry12@gmail.com> (https://github.com/qblol)",
+    "Muhammad Iqbal <iqbal.0809@gmail.com>"
+  ],
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -11,7 +17,6 @@
     "prod": "NODE_ENV=prod nodemon src/index.js"
   },
   "dependencies": {
-    "@google-cloud/storage": "^4.3.1",
     "@google-cloud/text-to-speech": "^2.1.3",
     "axios": "^0.19.2",
     "cors": "^2.8.5",
