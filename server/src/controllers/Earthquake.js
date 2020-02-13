@@ -3,8 +3,6 @@ const axios = require('axios');
 const firebase = require('../config/firebase')
 const { textToSpeech, announcerTranscript, smsContent, tweetContents, postTweet } = require('../helpers')
 const disasterType = 'earthquake'
-const { Storage } = require('@google-cloud/storage');
-const storage = new Storage();
 
 class Earthquake {
   static async createNewEarthquakeInfo(req, res){
@@ -44,16 +42,6 @@ class Earthquake {
           }
         });
       }
-
-      // async function uploadFile() {
-      //   await storage.bucket('announcements').upload(`output_psa.mp3`, {
-      //     destination: `output_psa_${newID}.mp3`
-      //   });
-
-      //   console.log(`${filename} uploaded to ${bucketName}.`);
-      // }
-
-      // await uploadFile()
 
       postTweet(tweetContents(disasterType, req.body))
 
