@@ -3,6 +3,7 @@ function announcerTranscript(disaster, payload) {
 
   switch(disaster) {
     case 'earthquake':
+      payload.magnitude = String(payload.magnitude).replace('.', ',')
       text = `Mohon perhatian. Kami dari BMKG menginformasikan bahwa telah terjadi gempa bumi sebesar ${payload.magnitude} Skala Rihter ${payload.tsunami ? ' dan berpotensi tsunami' : ''} pada tanggal 11 Februari 2020 pukul ${payload.time} Waktu Indonesia Barat, dengan kedalaman ${payload.depth} kilometer, di ${payload.earthquake_point}. Dihimbau kepada warga agar waspada terhadap gempa susulan. Terima kasih.`
       break;
     case 'flood':
